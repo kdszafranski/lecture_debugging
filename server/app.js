@@ -19,6 +19,7 @@ var server = app.listen(3000, function() {
 
 app.use(bodyParser.json());
 app.use( '/', index);
+app.use('/conKitty', index);
 app.use('/caro.html', caro);
 
 module.exports = app;

@@ -17,14 +17,17 @@
     <p ng-hide="cat.name">Enter your new cat's name!</p>
 
     <form novalidate>
-        Name: <input type="text" ng-model="cat.name" /><br />
+        Name: <input type="text" ng-model="cat.name" />
         <input type="submit" ng-click="add(cat)" value="Save"/>
     </form>
 
-    <h4>Cats</h4>
-    <ul>
+    <h4>My Cats</h4>
+    <ol>
         <li ng-repeat="cat in cats">{{ cat.name }}</li>
-    </ul>
+    </ol>
+
+    <h4>Con-Cat-e-Nated Names</h4>
+    <p ng-show="catNames.length > 0">{{catNames}}</p>
 </div>
 
 
