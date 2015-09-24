@@ -34,7 +34,7 @@ router.get('/conKitty', function(req, res, next) {
         if(err) throw new Error(err);
         for(var i = 0; i < list.length; i++) {
             if(list[i].name) {
-                var thisName = list[i].name.replace(" ", "-");
+                var thisName = list[i].name.replace(/ /gi, "-");
 
                 if(i == list.length - 1) {
                     // last

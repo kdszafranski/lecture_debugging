@@ -1,5 +1,14 @@
 var app = angular.module('app', []);
 
+app.config(function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+        // Allow same origin resource loads.
+        'self',
+        // Allow loading from our assets domain.  Notice the difference between * and **.
+        'https://www.youtube.com**'
+    ]);
+});
+
 app.controller("IndexController", ['$scope', '$http', function($scope, $http){
     $scope.cat = {};
     $scope.cats = [];
@@ -39,10 +48,17 @@ app.controller("IndexController", ['$scope', '$http', function($scope, $http){
 }]);
 
 app.controller("CaroController", ['$scope', '$http', function($scope, $http){
-    $scope.things = [
-        "one",
-        "two",
-        "three",
-        "four"
-    ]
+    //$scope.vid = "https://www.youtube.com/embed/XAg5KjnAhuU";
+    $scope.welcome = "hello, there!";
+    $scope.vids = [
+        {length: 4, width: 10,
+            hi: function() {
+                return function() {return this.width;}
+            }
+        },
+        "https://www.youtube.com/embed/jsX2Uefpyhw",
+        "https://www.youtube.com/embed/XAg5KjnAhuU",
+        "https://www.youtube.com/embed/Ff5qbXITt_M",
+    ];
+
 }]);
