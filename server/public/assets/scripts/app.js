@@ -61,7 +61,4 @@ app.controller("CaroController", ['$scope', '$http', function($scope, $http){
         "https://www.youtube.com/embed/Ff5qbXITt_M",
     ];
 
-    var x = $scope.vids[0].hi;
-    var w = x()();
-
 }]);
