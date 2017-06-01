@@ -10,48 +10,52 @@ mongoose.connect('mongodb://localhost/basic_walking_skeleton');
 var Cat = mongoose.model('Cat', {name: String});
 
 // Handle routes
-router.post('/add', function(request, response, next){
-    var kitty = new Cat({name: request.body.name});
+router.post('/add', function(req, res, next){
+    var kitty = new Cat({name: req.body.name});
     kitty.save(function(err){
-        if(err) console.log('meow %s', err);
-        response.send(kitty.toJSON());
-        next();
+        if(err) {
+          console.log('meow %s', err);
+        } else {
+          console.log('added new cat! Meow!');
+          res.send(kitty.toJSON());
+        }
     });
 });
 
-router.get('/cats', function(request, response, next){
-    return Cat.find({}).exec(function(err, cats){
-        if(err) throw new Error(err);
-        response.send(JSON.stringify(cats));
-        next();
+router.get('/cats', function(req, res){
+    Cat.find({}).exec(function(err, cats){
+        if(err) {
+          throw new Error(err);
+        } else {
+            res.send(JSON.stringify(cats));
+        }
     });
 });
 
 // concatenate all cat names in our db and return as a long string
-router.get('/conKitty', function(req, res, next) {
+router.get('/conKitty', function(req, res) {
     var names = "";
-    return Cat.find({}).exec(function(err, list) {
-        if(err) throw new Error(err);
-        for(var i = 0; i < list.length; i++) {
-            if(list[i].name) {
-                var thisName = list[i].name.replace(/ /gi, "-");
+    Cat.find({}).exec(function(err, list) {
+        if(err) {
+          throw new Error(err);
+        } else {
+          for(var i = 0; i < list.length; i++) {
+              if(list[i].name) {
+                  var thisName = list[i].name.replace(/ /gi, "-");
 
-                if(i == list.length - 1) {
-                    // last
-                    names += thisName;
-                } else {
-                    names += thisName + "-";
-                }
-            }
+                  if(i == list.length - 1) {
+                      // last
+                      names += thisName;
+                  } else {
+                      names += thisName + "-";
+                  }
+              }
+          }
+          res.send(JSON.stringify(names));
         }
-        res.send(JSON.stringify(names));
-        next();
     });
 });
 
-router.get('/caro', function(req, res, next) {
-    res.sendFile(path.join(__dirname, '../public/views/caro.html'));
-});
 
 router.get('/', function(req,res,next){
     res.sendFile(path.join(__dirname, '../public/views/index.html'));
